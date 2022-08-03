@@ -1,23 +1,32 @@
 import React, { useState } from "react";
-import { Button, Col, Container, Form, Row} from "react-bootstrap";
+import { Container, Row, Col, Form, Button} from "react-bootstrap";
 import { Link } from "react-router-dom";
-// import { useLoginMutation } from "../services/appApi";
+import "./Signup.css";
+// import { useSignupMutation } from "../services/appApi";
 
-function Login() {
+function Signup() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-//     const [login, { isError, isLoading, error }] = useLoginMutation();
-//     function handleLogin(e) {
-//         e.preventDefault();
-//         login({ email, password });
-//     }
+    const [name, setName] = useState("");
+//     const [signup, { error, isLoading, isError }] = useSignupMutation();
+
+    function handleSignup(e) {
+        e.preventDefault();
+        Signup({ name, email, password });
+    }
+
     return (
         <Container>
             <Row>
-                <Col md={6} className="login__form--container">
-                    {/* <Form style={{ width: "100%" }} onSubmit={handleLogin}> */}
-                        <h1>Login Account</h1>
+                <Col md={6} className="signup__form--container">
+                    <Form style={{ width: "100%" }} onSubmit={handleSignup}>
+                        <h1>Create an account</h1>
                         {/* {isError && <Alert variant="danger">{error.data}</Alert>} */}
+                        <Form.Group>
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control type="text" placeholder="Your name" value={name} required onChange={(e) => setName(e.target.value)} />
+                        </Form.Group>
+
                         <Form.Group>
                             <Form.Label>Email Address</Form.Label>
                             <Form.Control type="email" placeholder="Enter email" value={email} required onChange={(e) => setEmail(e.target.value)} />
@@ -30,19 +39,18 @@ function Login() {
 
                         <Form.Group>
                             <Button type="submit">
-                                Login
+                                Create account
                             </Button>
                         </Form.Group>
-
                         <p className="pt-3 text-center">
-                            Don't have an account? <Link to="/signup">Create account</Link>{" "}
+                            Don't have an account? <Link to="/login">Login</Link>{" "}
                         </p>
-                    {/* </Form> */}
+                    </Form>
                 </Col>
-                <Col md={6} className="login__image--container"></Col>
+                <Col md={6} className="signup__image--container"></Col>
             </Row>
         </Container>
     );
 }
 
-export default Login;
+export default Signup;
